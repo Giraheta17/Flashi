@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flapi Blast - Tecnología</title>
+    <style>
+        :root {
+            --primary: #1946ff;
+            --secondary: #181C24;
+            --accent: #ffbb00;
+            --bg: #f7f8fa;
+            --white: #fff;
+            --shadow: 0 2px 16px rgba(25,70,255,0.09);
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: var(--secondary);
+        }
+
+        header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 30px 0 25px 0;
+            text-align: center;
+            letter-spacing: 2px;
+            font-size: 2.3rem;
+            font-weight: bold;
+            box-shadow: 0 4px 24px rgba(25,70,255,0.07);
+        }
+
+        .productos-destacados {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .productos-destacados h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 34px;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .productos-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .producto {
+            background: var(--white);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            padding: 22px 18px 18px 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .producto:hover {
+            transform: translateY(-7px) scale(1.025);
+            box-shadow: 0 8px 24px rgba(25,70,255,0.18);
+        }
+
+        .producto img {
+            width: 100%;
+            max-width: 170px;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+            margin: 0 auto 16px auto;
+            border-radius: 8px;
+            background: #f3f4fa;
+            box-shadow: 0 2px 10px rgba(25,70,255,0.06);
+        }
+
+        .producto-nombre {
+            font-size: 1.18rem;
+            font-weight: bold;
+            margin-bottom: 9px;
+            color: var(--secondary);
+        }
+
+        .producto-precio {
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        .btn-comprar {
+            background: var(--accent);
+            color: var(--secondary);
+            font-size: 1.08rem;
+            padding: 10px 0;
+            border: none;
+            border-radius: 7px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            margin-top: auto;
+            box-shadow: 0 2px 6px rgba(255,187,0,0.07);
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-comprar:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        @media (max-width: 700px) {
+            header { font-size: 1.45rem; padding: 18px 0 16px 0; }
+            .productos-destacados h2 { font-size: 1.25rem; }
+            .producto img { max-width: 110px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Flapi Blast
+    </header>
+    <section class="productos-destacados">
+        <h2>Productos destacados</h2>
+        <div class="productos-lista" id="productos-lista">
+            <!-- Productos se generan desde JS -->
+        </div>
+    </section>
+    <script>
+        // Datos de ejemplo de productos
+        const productos = [
+            {
+                nombre: "Play Station 5 edicion Pepsi",
+                imagen: "pep.png",
+                precio: "$599.99"
+            },
+            {
+                nombre: "Smartwatch Flapi X5",
+                imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80",
+                precio: "$89.90"
+            },
+            {
+                nombre: "Power Bank 20,000mAh",
+                imagen: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80",
+                precio: "$24.50"
+            },
+            {
+                nombre: "Cámara de Seguridad 360°",
+                imagen: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+                precio: "$49.99"
+            },
+            {
+                nombre: "Teclado Mecánico RGB",
+                imagen: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80",
+                precio: "$39.80"
+            }
+        ];
+
+        // Número de WhatsApp, reemplaza aquí el número por el tuyo si quieres
+        const numeroWhatsApp = "50312345678"; // pon tu número aquí, solo dígitos (ej: 50312345678)
+
+        function crearProductoCard(producto) {
+            // Texto del mensaje que se envía a WhatsApp
+            const mensaje = encodeURIComponent(`¡Hola! 👋 Estoy interesado/a en uno de los productos de Flapi Blast 🚀. ¿Me podrías dar más información? ¡Gracias! 🙌`);
+            const enlaceWhatsapp = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+
+            return `
+                <div class="producto">
+                    <img src="${producto.imagen}" alt="${producto.nombre}">
+                    <div class="producto-nombre">${producto.nombre}</div>
+                    <div class="producto-precio">${producto.precio}</div>
+                    <a class="btn-comprar" href="${enlaceWhatsapp}" target="_blank" rel="noopener">
+                        Comprar ahora
+                    </a>
+                </div>
+            `;
+        }
+
+        document.getElementById('productos-lista').innerHTML = productos.map(crearProductoCard).join('');
+    </script>
+</body>
+</html>
